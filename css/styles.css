@@ -1,0 +1,70 @@
+    body {
+      color: #222;
+      font-family: "Helvetica Neue", sans-serif;
+      font-weight: 200;
+      margin: 0 50px;
+    }
+
+    .react-draggable, .cursor {
+      cursor: move;
+    }
+    .no-cursor {
+      cursor: auto;
+    }
+    .cursor-y {
+      cursor: ns-resize;
+    }
+    .cursor-x {
+      cursor: ew-resize;
+    }
+
+    .react-draggable strong {
+      background: #ddd;
+      border: 1px solid #999;
+      border-radius: 3px;
+      display: block;
+      margin-bottom: 10px;
+      padding: 3px 5px;
+      text-align: center;
+    }
+	
+	.show {
+		display: block;
+	}
+	.hide {
+		display: none;
+	}
+
+    .box {
+		position:absolute;
+      box-sizing: border-box;
+      background: #fff;
+      border: 1px solid #999;
+      border-radius: 3px;
+      width: 180px;
+      height: 180px;
+      margin: 10px;
+      padding: 10px;
+      float: left;
+    }
+	.top {
+		width: 500px;
+		height:50px;
+		background:#ffff22;
+	}
+	.bottom {
+		width:500px;
+		height:80px;
+		background:#33ff22;
+	}
+	.left {
+		width:100px;
+		height:400px;
+		
+	}
+	.right {
+		width: 400px;
+		height: 400px;
+		background:#999999;
+	}
+	
