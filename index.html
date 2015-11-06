@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <title>React Frame</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+<div>
+	<button onclick="HJMessage.send('setFramePosition', {x:0, y:0, isShow: true, className:'box top',name:'top'}); "> top</button>
+	<button onclick="HJMessage.send('showFrame', {isShow: false, name:'top'});">hide top</button>
+	<button onclick="HJMessage.send('setFramePosition', {x:0, y:50, isShow: true, className:'box left', name:'left'});">left </button>
+	<button onclick="HJMessage.send('setFramePosition', {x:100, y:50, isShow: true, className:'box right', name:'right'});">right</button>
+	<button onclick="HJMessage.send('setFramePosition', {x:0, y:450, isShow: true, className:'box bottom',name:'bottom'});">bottom</button>
+	<button onclick="HJMessage.send('showFrame', {isShow: false, name:'bottom'});">hide bottom</button>
+</div>
+<div id=container>
+</div>
+<script src="//fb.me/react-with-addons-0.13.2.js"></script>
+<script src="//fb.me/JSXTransformer-0.13.2.js"></script>
+<script src="../js/hjReactFrame.js"></script>
+<script src="../js/hjUtils.js"></script>
+<script type="text/jsx">
+  var Draggable = HJReactFrame;
+  var ReactTransitionGroup = React.addons.CSSTransitionGroup;
+  
+  var HJFrame = React.createClass({
+	getInitialState: function() {
+		return {
+			start: {x:this.props.start.x,y:this.props.start.y},
+			isShow: true,
+			draggable: false,
+			mounted: false
+		};
+	},
+	componentDidMount: function() {
+		this.setState({ mounted: true });
+	},
+	
+	componentWillMount: function() {
+		window.addEventListener("showFrame", this.handleEvent, false);
+	},
+	componentWillUnmount: function() {
+		window.removeEventListener("showFrame", this.handleEvent, false);
+	},
+	
+	handleEvent: function(e) {
+		var self = this;
+		var data = e.detail;
+		var item = self.getDOMNode().parentNode;
+		var nodeName = item.getAttribute("noderef");
+		switch(e.type) {
+			case "showFrame"://alert("before "+data.className+this.state.isShow);
+				if(data.name === nodeName) {
+					this.setState({isShow: data.isShow, mounted: false}); //alert("after "+data.className+this.state.isShow);
+				}
+				break;
+			default: break;
+		}
+	},
+	
+	render: function() {
+		
+		return(
+		<HJReactFrame start={this.state.start} draggable={this.props.draggable} className={this.state.isShow?"show":"hide"}>{this.props.child}
+		</HJReactFrame>
+		);
+	}
+  });
+  
+  window.addEventListener("setFramePosition", handleEvent, false);
+
+  function handleEvent(e)
+  {
+	var self = this;
+	var data = e.detail;
+	var mountNode = document.getElementById("container");
+	switch(e.type) {
+		case "showFrame":
+			
+			break;
+		case "setFramePosition":
+			
+			if(mountNode) {
+				var div = document.createElement("div");
+				div.setAttribute("noderef", data.name);
+				mountNode.appendChild(div);
+				var child = <div className={data.className}>test{data.x} test{data.y}<br/></div>;
+				React.render(<HJFrame start={{x:data.x,y:data.y}} draggable={false} className={data.className} child={child}></HJFrame>, div);
+			}
+			break;
+		default: break;
+	}
+  }
+
+ 
+</script>
+</body>
+</html>
