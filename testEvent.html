@@ -1,0 +1,53 @@
+<html>
+<head>
+
+</head>
+<body>
+	<div id="container"></div>
+	<script src="//fb.me/react-with-addons-0.13.2.js"></script>
+<script src="//fb.me/JSXTransformer-0.13.2.js"></script>
+<script type="text/jsx">
+	var mountNode = document.querySelector("#container");
+	var DataForm = React.createClass({
+
+		handleClick: function() {
+			var input = document.querySelector("input");
+			var value = input.value;
+			//alert(value);
+
+			var ret = [];
+			for(var i=0;i<10;++i) {
+				ret.push("this is search result "+value+"----"+i);
+			}
+			React.render(<SearchResult searchRet={ret}/>, mountNode);
+		},
+
+		render: function() {
+			return (
+				<div>
+				<input/>
+				<button onClick={this.handleClick}>search</button>
+				</div>
+				);
+		}
+	});
+
+	React.render(<DataForm />, mountNode);
+
+	var SearchResult = React.createClass({
+
+		render: function() {
+//alert(this.props.searchRet);
+			return (
+				<ul>
+				{this.props.searchRet.map(function(data) {
+					return <li>{data}</li>
+				})}
+				</ul>
+				);
+		}
+	});
+
+</script>
+</body>
+</html>
