@@ -1,0 +1,16 @@
+/* Styles go here */
+
+@media all and (max-width:800px)
+{
+  div {color: red;}
+}
+
+@media all and (max-width:500px)
+{
+  div {color: green;}
+}
+
+@media all and (max-width:300px)
+{
+  div {color:yellow;}
+}
